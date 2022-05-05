@@ -71,7 +71,7 @@ link28[] = {20,2};
 link29[] = {21,24};
 link30[] = {23,24};
 globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-462.293365,2.514679,301.553864,-244.380920,487,572,1};
-window[] = {2,-1,-1,-32000,-32000,814,26,1412,26,3,505};
+window[] = {2,-1,-1,-1,-1,814,26,1412,26,3,505};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -128,10 +128,6 @@ class FSM
                          "" \n
                          "//Get and sanitize the cqb behaviour addons" \n
                          "private _cqbBehaviourAddon = _logic getVariable [""garrison_behaviour"", ""vanilla""]; //default is vanilla" \n
-                         "" \n
-                         "diag_log format [""" \n
-                         "_cqbBehaviourAddon %1," \n
-                         """, _cqbbehaviourAddon];" \n
                          "" \n
                          "switch (_cqbBehaviourAddon) do {" \n
                          "	case ""vanilla"": {};" \n
