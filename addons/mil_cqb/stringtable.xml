@@ -177,7 +177,7 @@
     <English>Chance in % for each unit to patrol instead of garrison (CBA), max 100%</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_HOLD">
-    <English>Chance in % of holding position (CBA)</English>
+    <English>Chance of holding position (CBA)</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_HOLD_COMMENT">
     <English>Chance in % for each unit to hold their garrison in combat (CBA), max 100%</English>
