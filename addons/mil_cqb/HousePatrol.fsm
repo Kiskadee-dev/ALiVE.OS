@@ -4,12 +4,12 @@
 item0[] = {"Start",0,250,-155.232559,-241.279068,-65.232559,-191.279068,0.000000,"Start"};
 item1[] = {"Random_Delay",4,218,-154.883728,-168.604660,-64.883736,-118.604660,0.000000,"Random" \n "Delay"};
 item2[] = {"Select_floors",2,250,-154.302368,-88.372086,-64.302322,-38.372086,0.000000,"Select floors"};
-item3[] = {"Enemy_Spotted",4,4314,-40.348866,-91.211143,49.651142,-41.211159,5.000000,"Enemy" \n "Spotted"};
+item3[] = {"Enemy_Spotted",4,218,-40.348866,-91.211143,49.651142,-41.211159,5.000000,"Enemy" \n "Spotted"};
 item4[] = {"Wait_while_Enemy",2,250,74.675186,-92.414078,164.675171,-42.414040,0.000000,"Wait while" \n "Enemy" \n "Spotted"};
 item5[] = {"",7,210,190.465103,-67.441856,198.465118,-59.441856,0.000000,""};
 item6[] = {"",7,210,190.469543,-147.626953,198.469543,-139.626953,0.000000,""};
 item7[] = {"_",8,218,-154.463562,-22.245586,-64.463570,27.754414,0.000000,""};
-item8[] = {"Garrison_Buildings",2,250,-155.005432,46.033588,-65.005432,96.033607,0.000000,"Garrison" \n "Buildings and " \n "static weapons"};
+item8[] = {"Garrison_Buildings",2,4346,-155.005432,46.033588,-65.005432,96.033607,0.000000,"Garrison" \n "Buildings and " \n "static weapons"};
 item9[] = {"",7,210,190.209213,67.273834,198.209213,75.273834,0.000000,""};
 item10[] = {"Wait_1_minute",4,218,-38.573677,45.691322,51.426323,95.691330,0.000000,"Wait 1 minute"};
 item11[] = {"set_user_waiting",2,250,77.103096,46.333992,167.103088,96.333992,0.000000,"set" \n "user waiting" \n "time"};
@@ -20,7 +20,7 @@ item15[] = {"Abort",4,218,-138.296738,126.212921,-48.296669,176.212936,9.000000,
 item16[] = {"Pass_FSM_and_End",1,250,80.389030,194.239243,170.389069,244.239197,0.000000,"Pass FSM" \n "and" \n "End"};
 item17[] = {"End_1",1,250,-30.944130,192.897903,59.055893,242.897858,0.000000,"End"};
 item18[] = {"Players__out_of",4,218,-262.983612,51.398300,-172.983444,101.398277,0.000000,"Players " \n "out of Range"};
-item19[] = {"Move_home",2,250,-382.479431,49.360733,-292.479431,99.360764,0.000000,"Move home"};
+item19[] = {"Move_home",2,250,-384.313721,50.277817,-294.313721,100.277847,0.000000,"Move home"};
 item20[] = {"Players__in_Rang",4,218,-383.809692,-88.932213,-293.809418,-38.932289,0.000000,"Players " \n "in Range"};
 item21[] = {"At_home",4,218,-382.350586,131.043976,-292.350250,181.044006,2.000000,"At home"};
 item22[] = {"_",-1,250,-440.685394,-235.585892,-437.600311,-235.585892,0.000000,""};
@@ -70,7 +70,7 @@ link27[] = {19,23};
 link28[] = {20,2};
 link29[] = {21,24};
 link30[] = {23,24};
-globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-395.405487,51.237488,337.918396,-186.680862,487,572,1};
+globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-306.721100,158.086945,296.782043,-249.152664,487,572,1};
 window[] = {2,-1,-1,-1,-1,988,78,1747,78,3,505};
 *//*%FSM</HEAD>*/
 class FSM
@@ -320,7 +320,15 @@ class FSM
                                         priority = 9.000000;
                                         to="End_1";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"!_patrol"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"switch (_cqbBehaviourAddon) do {" \n
+                                         "" \n
+                                         "	case ""vanilla"": {" \n
+                                         "		!_patrol" \n
+                                         "	};" \n
+                                         "	case default {" \n
+                                         "		_cqbPatrol == 0" \n
+                                         "	};" \n
+                                         "};"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -563,7 +571,15 @@ class FSM
                                         priority = 9.000000;
                                         to="End_1";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"!_patrol"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"switch (_cqbBehaviourAddon) do {" \n
+                                         "" \n
+                                         "	case ""vanilla"": {" \n
+                                         "		!_patrol" \n
+                                         "	};" \n
+                                         "	case default {" \n
+                                         "		_cqbPatrol == 0" \n
+                                         "	};" \n
+                                         "};"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -667,21 +683,29 @@ class FSM
                 {
                         name = "Move_home";
                         itemno = 19;
-                        init = /*%FSM<STATEINIT""">*/"{" \n
-                         "    _unit = _x;" \n
-                         "    _pos = _unit getvariable [""HousePos"",nil];" \n
-                         "    if (isnil ""_pos"") then {_pos = (selectRandom _bldgpos)};" \n
-                         "    _timeout = time;" \n
+                        init = /*%FSM<STATEINIT""">*/"switch (_cqbBehaviourAddon) do {" \n
                          "" \n
-                         "    _unit setSpeedMode ""FULL"";" \n
-                         "    _unit setbehaviour ""AWARE"";" \n
+                         "	case ""vanilla"": {" \n
+                         "	" \n
+                         "        {" \n
+                         "            _unit = _x;" \n
+                         "            _pos = _unit getvariable [""HousePos"",nil];" \n
+                         "            if (isnil ""_pos"") then {_pos = (selectRandom _bldgpos)};" \n
+                         "            _timeout = time;" \n
                          "" \n
-                         "	unassignVehicle _unit ;" \n
-                         "    [_unit] orderGetIn false;" \n
+                         "            _unit setSpeedMode ""FULL"";" \n
+                         "            _unit setbehaviour ""AWARE"";" \n
                          "" \n
-                         "    [_unit, _pos] call ALiVE_fnc_doMoveRemote;" \n
-                         "    _unit setvariable [""HousePos"",nil];" \n
-                         "} foreach (units _grp);"/*%FSM</STATEINIT""">*/;
+                         "            unassignVehicle _unit ;" \n
+                         "            [_unit] orderGetIn false;" \n
+                         "" \n
+                         "            [_unit, _pos] call ALiVE_fnc_doMoveRemote;" \n
+                         "            _unit setvariable [""HousePos"",nil];" \n
+                         "        } foreach (units _grp);" \n
+                         "    };" \n
+                         "" \n
+                         "    case default {};" \n
+                         "};"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links
                         {
@@ -703,7 +727,15 @@ class FSM
                                         priority = 2.000000;
                                         to="End_delete_group";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"{alive _x && (_x distance (_x getvariable ""HousePos"") > 4)} count (units _grp) < 2"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"switch (_cqbBehaviourAddon) do {" \n
+                                         "" \n
+                                         "	case ""vanilla"": {" \n
+                                         "		{alive _x && (_x distance (_x getvariable ""HousePos"") > 4)} count (units _grp) < 2" \n
+                                         "	};" \n
+                                         "	case default {" \n
+                                         "		true" \n
+                                         "	};" \n
+                                         "};"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/

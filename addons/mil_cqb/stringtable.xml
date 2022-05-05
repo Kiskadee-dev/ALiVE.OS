@@ -174,13 +174,13 @@
     <English>Chance of patrol (CBA)</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_PATROL_COMMENT">
-    <English>Chance for each unit to patrol instead of garrison (CBA)</English>
+    <English>Chance in % for each unit to patrol instead of garrison (CBA)</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_HOLD">
-    <English>Chance of holding position (CBA)</English>
+    <English>Chance in % of holding position (CBA)</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_HOLD_COMMENT">
-    <English>Chance for each unit to hold their garrison in combat (CBA)</English>
+    <English>Chance in % for each unit to hold their garrison in combat (CBA)</English>
 </Key>
 
 </Container></Package></Project>
