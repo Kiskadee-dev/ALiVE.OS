@@ -356,11 +356,6 @@ class CfgVehicles {
                                                 name="CBA";
                                                 value = "cba";
                                         };
-                                        class Lambs 
-                                        {
-                                                name="Lambs danger.fsm";
-                                                value = "lambs";
-                                        };
                                 };
                                 defaultValue = "vanilla";
                         };

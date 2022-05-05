@@ -9,7 +9,7 @@ item4[] = {"Wait_while_Enemy",2,250,74.675186,-92.414078,164.675171,-42.414040,0
 item5[] = {"",7,210,190.465103,-67.441856,198.465118,-59.441856,0.000000,""};
 item6[] = {"",7,210,190.469543,-147.626953,198.469543,-139.626953,0.000000,""};
 item7[] = {"_",8,218,-154.463562,-22.245586,-64.463570,27.754414,0.000000,""};
-item8[] = {"Garrison_Buildings",2,4346,-155.005432,46.033588,-65.005432,96.033607,0.000000,"Garrison" \n "Buildings and " \n "static weapons"};
+item8[] = {"Garrison_Buildings",2,250,-155.005432,46.033588,-65.005432,96.033607,0.000000,"Garrison" \n "Buildings and " \n "static weapons"};
 item9[] = {"",7,210,190.209213,67.273834,198.209213,75.273834,0.000000,""};
 item10[] = {"Wait_1_minute",4,218,-38.573677,45.691322,51.426323,95.691330,0.000000,"Wait 1 minute"};
 item11[] = {"set_user_waiting",2,250,77.103096,46.333992,167.103088,96.333992,0.000000,"set" \n "user waiting" \n "time"};
@@ -20,7 +20,7 @@ item15[] = {"Abort",4,218,-138.296738,126.212921,-48.296669,176.212936,9.000000,
 item16[] = {"Pass_FSM_and_End",1,250,80.389030,194.239243,170.389069,244.239197,0.000000,"Pass FSM" \n "and" \n "End"};
 item17[] = {"End_1",1,250,-30.944130,192.897903,59.055893,242.897858,0.000000,"End"};
 item18[] = {"Players__out_of",4,218,-262.983612,51.398300,-172.983444,101.398277,0.000000,"Players " \n "out of Range"};
-item19[] = {"Move_home",2,250,-384.313721,50.277817,-294.313721,100.277847,0.000000,"Move home"};
+item19[] = {"Move_home",2,4346,-384.313721,50.277817,-294.313721,100.277847,0.000000,"Move home"};
 item20[] = {"Players__in_Rang",4,218,-383.809692,-88.932213,-293.809418,-38.932289,0.000000,"Players " \n "in Range"};
 item21[] = {"At_home",4,218,-382.350586,131.043976,-292.350250,181.044006,2.000000,"At home"};
 item22[] = {"_",-1,250,-440.685394,-235.585892,-437.600311,-235.585892,0.000000,""};
@@ -70,8 +70,8 @@ link27[] = {19,23};
 link28[] = {20,2};
 link29[] = {21,24};
 link30[] = {23,24};
-globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-306.721100,158.086945,296.782043,-249.152664,487,572,1};
-window[] = {2,-1,-1,-1,-1,988,78,1747,78,3,505};
+globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-462.293365,2.514679,301.553864,-244.380920,487,572,1};
+window[] = {2,-1,-1,-32000,-32000,814,26,1412,26,3,505};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -143,12 +143,6 @@ class FSM
                          "switch (_cqbBehaviourAddon) do {" \n
                          "	case ""vanilla"";" \n
                          "	case ""cba""; //CBA is a dependency of ALiVE" \n
-                         "	case ""lambs"": {" \n
-                         "		if (!(isClass(configFile >> ""CfgPatches"" >> ""lambs_danger""))) then {" \n
-                         "			_cqbBehaviourAddon = 0;" \n
-                         "			[""Lambs danger not loaded, defaulting to vanilla cqb""] call ALiVE_fnc_DumpR;" \n
-                         "		};" \n
-                         "	};" \n
                          "	default {" \n
                          "		[""Unknown value chosen for cqb addon, defaulting to vanilla cqb""] call ALiVE_fnc_DumpR;" \n
                          "		_cqbBehaviourAddon = 0;" \n
@@ -156,34 +150,16 @@ class FSM
                          "};" \n
                          "" \n
                          "//Get variables from the module" \n
-                         "private _cqbArea = parseNumber (_logic getVariable [""garrison_area"", 0]);" \n
+                         "private _cqbRadius = parseNumber (_logic getVariable [""garrison_area"", 0]);" \n
                          "private _cqbThreshold = parseNumber (_logic getVariable [""garrison_threshold"", 0]);" \n
                          "private _cqbPatrol = parseNumber (_logic getVariable [""garrison_patrol"", 0]);" \n
                          "private _cqbHold = parseNumber (_logic getVariable [""garrison_hold"", 0]);" \n
                          "" \n
-                         "diag_log format [""" \n
-                         "_cqbArea %1," \n
-                         "_cqbThreshold %2," \n
-                         "_cqbPatrol %3," \n
-                         "_cqbHold %4," \n
-                         "_cqbBehaviourAddon %5," \n
-                         """, _cqbArea, _cqbThreshold, _cqbPatrol, _cqbHold, _cqbbehaviourAddon];" \n
-                         "" \n
                          "//Sanitize all of the above" \n
-                         "_cqbArea = (0 max _cqbArea) min 100;" \n
-                         "_cqbThreshold = (0 max _cqbThreshold) min 10;" \n
-                         "_cqbPatrol = ((0 max _cqbPatrol) min 100) / 100;" \n
-                         "_cqbHold = ((0 max _cqbHold) min 100) / 100;" \n
-                         "" \n
-                         "" \n
-                         "diag_log format [""" \n
-                         "Sanitized:" \n
-                         "_cqbArea %1," \n
-                         "_cqbThreshold %2," \n
-                         "_cqbPatrol %3," \n
-                         "_cqbHold %4," \n
-                         "_cqbBehaviourAddon %5," \n
-                         """, _cqbArea, _cqbThreshold, _cqbPatrol, _cqbHold, _cqbbehaviourAddon];" \n
+                         "_cqbRadius = (0 max _cqbRadius) min 100; //max radius is 100m" \n
+                         "_cqbThreshold = (0 max _cqbThreshold) min 10; //max thresthold is 10" \n
+                         "_cqbPatrol = ((0 max _cqbPatrol) min 100) / 100; //max cqb chance is 100%, 1" \n
+                         "_cqbHold = ((0 max _cqbHold) min 100) / 100; //max cqb hold chance is 100%, 1" \n
                          "" \n
                          "// add static weapon distance to spawn distance" \n
                          "_staticRange = 0;" \n
@@ -385,24 +361,7 @@ class FSM
                          "		_patrol	chance for each unit to patrol instead of garrison, true for default, false for 0% <NUMBER, BOOLEAN> (Default: 0.1)" \n
                          "		_hold	chance for each unit to hold their garrison in combat, true for 100%, false for 0% <NUMBER, BOOLEAN> (Default: 0)" \n
                          "		*/" \n
-                         "		[_grp, position (leader _grp), _cqbArea, _cqbThreshold, selectRandom [_cqbPatrol], selectRandom [_cqbHold]] call CBA_fnc_taskDefend;" \n
-                         "	};" \n
-                         "	case ""lambs"": {" \n
-                         "		/*" \n
-                         "		[""_group"", grpNull, [grpNull, objNull]]," \n
-                         "    	[""_pos"", []]," \n
-                         "    	[""_radius"", 50, [0]]," \n
-                         "    	[""_area"", [], [[]]]," \n
-                         "    	[""_teleport"", false, [false]]," \n
-                         "    	[""_sortBasedOnHeight"", false, [false]]," \n
-                         "    	[""_exitCondition"", -2 - 2, [0]]," \n
-                         "    	[""_patrol"", false, [false]]" \n
-                         "		*/" \n
-                         "		diag_log format [""" \n
-                         "		lambs::call task" \n
-                         "		_grp: %1," \n
-                         "		"", _grp];" \n
-                         "		[_grp, position (leader _grp), _cqbArea, [], false, false, -2-2, _cqbPatrol > 0] call lambs_wp_fnc_taskgarrison;" \n
+                         "		[_grp, position (leader _grp), _cqbRadius, _cqbThreshold, selectRandom [_cqbPatrol], selectRandom [_cqbHold]] call CBA_fnc_taskDefend;" \n
                          "	};" \n
                          "	default {" \n
                          "		_grp setbehaviour ""SAFE"";" \n
@@ -455,9 +414,6 @@ class FSM
                          "		} foreach (units _grp);" \n
                          "	};" \n
                          "};" \n
-                         "/*" \n
-                         "" \n
-                         "*/" \n
                          "" \n
                          "" \n
                          "{" \n
@@ -704,7 +660,15 @@ class FSM
                          "        } foreach (units _grp);" \n
                          "    };" \n
                          "" \n
-                         "    case default {};" \n
+                         "    case default {" \n
+                         "		{" \n
+                         "			_unit = _x;" \n
+                         "			_pos = _unit getVariable [""HousePos"", nil];" \n
+                         "         if (isnil ""_pos"") then {_pos = (selectRandom _bldgpos)};" \n
+                         "         _timeout = time;" \n
+                         "			_unit setvariable [""HousePos"",nil];" \n
+                         "		} forEach (units _grp);" \n
+                         "	};" \n
                          "};"/*%FSM</STATEINIT""">*/;
                         precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
                         class Links

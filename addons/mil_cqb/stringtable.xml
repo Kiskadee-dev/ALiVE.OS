@@ -159,10 +159,10 @@
     <English>Choose a supported AI behaviour to handle the garrisoned units (optional)</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_AREA">
-    <English>Garrisoned AI Area</English>
+    <English>Garrisoned AI Radius</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_AREA_COMMENT">
-    <English>The distance the AI will garrison (CBA, Lambs)</English>
+    <English>The distance the AI will garrison (CBA)</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_THRESHOLD">
     <English>Garrison threshold (CBA)</English>
