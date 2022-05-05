@@ -15,7 +15,7 @@ item10[] = {"Wait_1_minute",4,218,-38.573677,45.691322,51.426323,95.691330,0.000
 item11[] = {"set_user_waiting",2,250,77.103096,46.333992,167.103088,96.333992,0.000000,"set" \n "user waiting" \n "time"};
 item12[] = {"Unit_Dead",4,218,81.425049,129.015778,171.425034,179.015732,9.000000,"Unit" \n "Dead"};
 item13[] = {"End",1,250,-136.241180,191.556534,-46.241142,241.556503,0.000000,"End"};
-item14[] = {"No_Patrol",4,218,-34.398903,128.351761,55.600967,178.351761,9.000000,"No Patrol"};
+item14[] = {"No_Patrol",4,218,-27.049782,127.301903,62.950089,177.301895,9.000000,"No Patrol"};
 item15[] = {"Abort",4,218,-138.296738,126.212921,-48.296669,176.212936,9.000000,"Abort"};
 item16[] = {"Pass_FSM_and_End",1,250,80.389030,194.239243,170.389069,244.239197,0.000000,"Pass FSM" \n "and" \n "End"};
 item17[] = {"End_1",1,250,-30.944130,192.897903,59.055893,242.897858,0.000000,"End"};
@@ -70,8 +70,8 @@ link27[] = {19,23};
 link28[] = {20,2};
 link29[] = {21,24};
 link30[] = {23,24};
-globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-462.293365,2.514679,301.553864,-244.380920,487,572,1};
-window[] = {2,-1,-1,-1,-1,814,26,1412,26,3,505};
+globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-457.385376,182.883606,355.021423,-287.494141,570,572,1};
+window[] = {2,-1,-1,-1,-1,814,26,1412,26,3,588};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -100,7 +100,7 @@ class FSM
                          "// 0 = [this, 50] execVM ""scripts\crb_scripts\crB_HousePos.sqf"";" \n
                          "//" \n
                          "// Patrol unit to random house positions within 50m with a maximum" \n
-                         "//     wait time 300 sec between positions" \n
+                         "//     wai time 300 sec between positions" \n
                          "// 0 = [this, 50, true] execVM ""scripts\crb_scripts\crB_HousePos.sqf"";" \n
                          "//" \n
                          "// Patrol unit to random house positions within 50m with a maximum" \n
@@ -321,7 +321,9 @@ class FSM
                                         priority = 0.000000;
                                         to="Move_home";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"!([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"outOfRange = !([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);" \n
+                                         "diag_log format [""HousePatrol.fsm::Players out of range: %1"", outOfRange];" \n
+                                         "outOfRange"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -367,9 +369,9 @@ class FSM
                          "    	[""_teleport"", false, [false]]," \n
                          "    	[""_sortBasedOnHeight"", false, [false]]," \n
                          "    	[""_exitCondition"", -2 - 2, [0]]," \n
-                         "    	[""_patrol"", false, [false]]" \n
+                         "    	[""_patrol"", false, [false]] -------------------> causes issue as lambs creates new groups for patrols and may leave the old one empty" \n
                          "		*/" \n
-                         "		[_grp, position (leader _grp), _cqbRadius, [], false, false, -2 - 2, _cqbPatrol > 0] call lambs_wp_fnc_taskgarrison;" \n
+                         "		[_grp, position (leader _grp), _cqbRadius, [], false, false, -2 - 2, false] call lambs_wp_fnc_taskgarrison;" \n
                          "	};" \n
                          "	default {" \n
                          "		_grp setbehaviour ""SAFE"";" \n
@@ -488,7 +490,9 @@ class FSM
                                         priority = 0.000000;
                                         to="Move_home";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"!([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"outOfRange = !([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);" \n
+                                         "diag_log format [""HousePatrol.fsm::Players out of range: %1"", outOfRange];" \n
+                                         "outOfRange"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -564,7 +568,9 @@ class FSM
                                         priority = 0.000000;
                                         to="Move_home";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"!([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"outOfRange = !([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);" \n
+                                         "diag_log format [""HousePatrol.fsm::Players out of range: %1"", outOfRange];" \n
+                                         "outOfRange"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -687,7 +693,12 @@ class FSM
                                         priority = 3.000000;
                                         to="End_delete_group";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"!([_posDespawn, (_spawn + _staticRange)*2.5, _spawnJet*2, _spawnHeli*2] call ALiVE_fnc_anyPlayersInRangeIncludeAir) && {({alive _x} count (units _grp) > 0)}"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"playersFarAway = !([_posDespawn, (_spawn + _staticRange)*2.5, _spawnJet*2, _spawnHeli*2] call ALiVE_fnc_anyPlayersInRangeIncludeAir) && {({alive _x} count (units _grp) > 0)};" \n
+                                         "" \n
+                                         "diag_log format [""HousePatrol.fsm::Players far away: %1" \n
+                                         "group: %2"", playersFarAway, str(_grp)];" \n
+                                         "" \n
+                                         "playersFarAway"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -701,9 +712,16 @@ class FSM
                                         condition=/*%FSM<CONDITION""">*/"switch (_cqbBehaviourAddon) do {" \n
                                          "" \n
                                          "	case ""vanilla"": {" \n
-                                         "		{alive _x && (_x distance (_x getvariable ""HousePos"") > 4)} count (units _grp) < 2" \n
+                                         "		atHome = {alive _x && (_x distance (_x getvariable ""HousePos"") > 4)} count (units _grp) < 2;" \n
+                                         "		diag_log format [""HousePatrol.fsm::At home::vanilla" \n
+                                         "		%1," \n
+                                         "		%2,"", atHome, str(_grp)];" \n
+                                         "		atHome" \n
                                          "	};" \n
                                          "	case default {" \n
+                                         "		diag_log format [""HousePatrol.fsm::At home::default" \n
+                                         "		%1," \n
+                                         "		%2,"", true, str(_grp)];" \n
                                          "		true" \n
                                          "	};" \n
                                          "};"/*%FSM</CONDITION""">*/;
