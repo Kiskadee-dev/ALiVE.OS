@@ -162,25 +162,25 @@
     <English>Garrisoned AI Radius</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_AREA_COMMENT">
-    <English>The distance the AI will garrison (CBA)</English>
+    <English>The distance the AI will garrison (CBA), max 100m</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_THRESHOLD">
     <English>Garrison threshold (CBA)</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_THRESHOLD_COMMENT">
-    <English>Minimum building positions required to be considered for garrison (CBA)</English>
+    <English>Minimum building positions required to be considered for garrison (CBA), max 10</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_PATROL">
     <English>Chance of patrol (CBA)</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_PATROL_COMMENT">
-    <English>Chance in % for each unit to patrol instead of garrison (CBA)</English>
+    <English>Chance in % for each unit to patrol instead of garrison (CBA), max 100%</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_HOLD">
     <English>Chance in % of holding position (CBA)</English>
 </Key>
 <Key ID="STR_ALIVE_CQB_GARRISON_HOLD_COMMENT">
-    <English>Chance in % for each unit to hold their garrison in combat (CBA)</English>
+    <English>Chance in % for each unit to hold their garrison in combat (CBA), max 100%</English>
 </Key>
 
 </Container></Package></Project>
