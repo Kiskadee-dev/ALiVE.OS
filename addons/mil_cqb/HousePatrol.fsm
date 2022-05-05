@@ -9,7 +9,7 @@ item4[] = {"Wait_while_Enemy",2,250,74.675186,-92.414078,164.675171,-42.414040,0
 item5[] = {"",7,210,190.465103,-67.441856,198.465118,-59.441856,0.000000,""};
 item6[] = {"",7,210,190.469543,-147.626953,198.469543,-139.626953,0.000000,""};
 item7[] = {"_",8,218,-154.463562,-22.245586,-64.463570,27.754414,0.000000,""};
-item8[] = {"Garrison_Buildings",2,4346,-155.005432,46.033588,-65.005432,96.033607,0.000000,"Garrison" \n "Buildings and " \n "static weapons"};
+item8[] = {"Garrison_Buildings",2,250,-155.005432,46.033588,-65.005432,96.033607,0.000000,"Garrison" \n "Buildings and " \n "static weapons"};
 item9[] = {"",7,210,190.209213,67.273834,198.209213,75.273834,0.000000,""};
 item10[] = {"Wait_1_minute",4,218,-38.573677,45.691322,51.426323,95.691330,0.000000,"Wait 1 minute"};
 item11[] = {"set_user_waiting",2,250,77.103096,46.333992,167.103088,96.333992,0.000000,"set" \n "user waiting" \n "time"};
@@ -70,8 +70,8 @@ link27[] = {19,23};
 link28[] = {20,2};
 link29[] = {21,24};
 link30[] = {23,24};
-globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-457.385376,182.883606,355.021423,-287.494141,570,572,1};
-window[] = {2,-1,-1,-1,-1,814,26,1412,26,3,588};
+globals[] = {0.000000,0,0,0,0,640,480,1,32,6316128,1,-594.995117,148.951843,418.049713,-328.507568,570,572,1};
+window[] = {2,-1,-1,-32000,-32000,814,26,1412,26,3,588};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -321,9 +321,8 @@ class FSM
                                         priority = 0.000000;
                                         to="Move_home";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"outOfRange = !([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);" \n
-                                         "diag_log format [""HousePatrol.fsm::Players out of range: %1"", outOfRange];" \n
-                                         "outOfRange"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"private _outOfRange = !([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);" \n
+                                         "_outOfRange"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -490,9 +489,8 @@ class FSM
                                         priority = 0.000000;
                                         to="Move_home";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"outOfRange = !([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);" \n
-                                         "diag_log format [""HousePatrol.fsm::Players out of range: %1"", outOfRange];" \n
-                                         "outOfRange"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"private _outOfRange = !([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);" \n
+                                         "_outOfRange"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -568,9 +566,8 @@ class FSM
                                         priority = 0.000000;
                                         to="Move_home";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"outOfRange = !([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);" \n
-                                         "diag_log format [""HousePatrol.fsm::Players out of range: %1"", outOfRange];" \n
-                                         "outOfRange"/*%FSM</CONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"private _outOfRange = !([_posDespawn, (_spawn + _staticRange)*1.2, _spawnJet*1.2, _spawnHeli*1.2] call ALiVE_fnc_anyPlayersInRangeIncludeAir);" \n
+                                         "_outOfRange"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -693,12 +690,9 @@ class FSM
                                         priority = 3.000000;
                                         to="End_delete_group";
                                         precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-                                        condition=/*%FSM<CONDITION""">*/"playersFarAway = !([_posDespawn, (_spawn + _staticRange)*2.5, _spawnJet*2, _spawnHeli*2] call ALiVE_fnc_anyPlayersInRangeIncludeAir) && {({alive _x} count (units _grp) > 0)};" \n
+                                        condition=/*%FSM<CONDITION""">*/"private _playersFarAway = !([_posDespawn, (_spawn + _staticRange)*2.5, _spawnJet*2, _spawnHeli*2] call ALiVE_fnc_anyPlayersInRangeIncludeAir) && {({alive _x} count (units _grp) > 0)};" \n
                                          "" \n
-                                         "diag_log format [""HousePatrol.fsm::Players far away: %1" \n
-                                         "group: %2"", playersFarAway, str(_grp)];" \n
-                                         "" \n
-                                         "playersFarAway"/*%FSM</CONDITION""">*/;
+                                         "_playersFarAway"/*%FSM</CONDITION""">*/;
                                         action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
                                 };
                                 /*%FSM</LINK>*/
@@ -712,16 +706,10 @@ class FSM
                                         condition=/*%FSM<CONDITION""">*/"switch (_cqbBehaviourAddon) do {" \n
                                          "" \n
                                          "	case ""vanilla"": {" \n
-                                         "		atHome = {alive _x && (_x distance (_x getvariable ""HousePos"") > 4)} count (units _grp) < 2;" \n
-                                         "		diag_log format [""HousePatrol.fsm::At home::vanilla" \n
-                                         "		%1," \n
-                                         "		%2,"", atHome, str(_grp)];" \n
-                                         "		atHome" \n
+                                         "		private _atHome = {alive _x && (_x distance (_x getvariable ""HousePos"") > 4)} count (units _grp) < 2;" \n
+                                         "		_atHome" \n
                                          "	};" \n
                                          "	case default {" \n
-                                         "		diag_log format [""HousePatrol.fsm::At home::default" \n
-                                         "		%1," \n
-                                         "		%2,"", true, str(_grp)];" \n
                                          "		true" \n
                                          "	};" \n
                                          "};"/*%FSM</CONDITION""">*/;
