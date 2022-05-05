@@ -1,7 +1,7 @@
 /*%FSM<COMPILE "scriptedFSM.cfg, Simple House Patrol">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Start",0,4346,-155.232559,-241.279068,-65.232559,-191.279068,0.000000,"Start"};
+item0[] = {"Start",0,250,-155.232559,-241.279068,-65.232559,-191.279068,0.000000,"Start"};
 item1[] = {"Random_Delay",4,218,-154.883728,-168.604660,-64.883736,-118.604660,0.000000,"Random" \n "Delay"};
 item2[] = {"Select_floors",2,250,-154.302368,-88.372086,-64.302322,-38.372086,0.000000,"Select floors"};
 item3[] = {"Enemy_Spotted",4,218,-40.348866,-91.211143,49.651142,-41.211159,5.000000,"Enemy" \n "Spotted"};
@@ -9,7 +9,7 @@ item4[] = {"Wait_while_Enemy",2,250,74.675186,-92.414078,164.675171,-42.414040,0
 item5[] = {"",7,210,190.465103,-67.441856,198.465118,-59.441856,0.000000,""};
 item6[] = {"",7,210,190.469543,-147.626953,198.469543,-139.626953,0.000000,""};
 item7[] = {"_",8,218,-154.463562,-22.245586,-64.463570,27.754414,0.000000,""};
-item8[] = {"Garrison_Buildings",2,250,-155.005432,46.033588,-65.005432,96.033607,0.000000,"Garrison" \n "Buildings and " \n "static weapons"};
+item8[] = {"Garrison_Buildings",2,4346,-155.005432,46.033588,-65.005432,96.033607,0.000000,"Garrison" \n "Buildings and " \n "static weapons"};
 item9[] = {"",7,210,190.209213,67.273834,198.209213,75.273834,0.000000,""};
 item10[] = {"Wait_1_minute",4,218,-38.573677,45.691322,51.426323,95.691330,0.000000,"Wait 1 minute"};
 item11[] = {"set_user_waiting",2,250,77.103096,46.333992,167.103088,96.333992,0.000000,"set" \n "user waiting" \n "time"};
@@ -132,6 +132,12 @@ class FSM
                          "switch (_cqbBehaviourAddon) do {" \n
                          "	case ""vanilla"": {};" \n
                          "	case ""cba"": {}; //CBA is a dependency of ALiVE" \n
+                         "	case ""lambs"": {" \n
+                         "		if (!(isClass(configFile >> ""CfgPatches"" >> ""lambs_danger""))) then {" \n
+                         "			_cqbBehaviourAddon = 0;" \n
+                         "			[""Lambs danger.fsm addon not loaded, defaulting to vanilla cqb""] call ALiVE_fnc_DumpR;" \n
+                         "		};" \n
+                         "	};" \n
                          "	default {" \n
                          "		[""Unknown value chosen for cqb addon, defaulting to vanilla cqb""] call ALiVE_fnc_DumpR;" \n
                          "		_cqbBehaviourAddon = 0;" \n
@@ -350,7 +356,20 @@ class FSM
                          "		_patrol	chance for each unit to patrol instead of garrison, true for default, false for 0% <NUMBER, BOOLEAN> (Default: 0.1)" \n
                          "		_hold	chance for each unit to hold their garrison in combat, true for 100%, false for 0% <NUMBER, BOOLEAN> (Default: 0)" \n
                          "		*/" \n
-                         "		[_grp, position (leader _grp), _cqbRadius, _cqbThreshold, selectRandom [_cqbPatrol], selectRandom [_cqbHold]] call CBA_fnc_taskDefend;" \n
+                         "		[_grp, position (leader _grp), _cqbRadius, _cqbThreshold, _cqbPatrol, _cqbHold] call CBA_fnc_taskDefend;" \n
+                         "	};" \n
+                         "	case ""lambs"": {" \n
+                         "		/*" \n
+                         "		[""_group"", grpNull, [grpNull, objNull]]," \n
+                         "    	[""_pos"", []]," \n
+                         "    	[""_radius"", 50, [0]]," \n
+                         "    	[""_area"", [], [[]]]," \n
+                         "    	[""_teleport"", false, [false]]," \n
+                         "    	[""_sortBasedOnHeight"", false, [false]]," \n
+                         "    	[""_exitCondition"", -2 - 2, [0]]," \n
+                         "    	[""_patrol"", false, [false]]" \n
+                         "		*/" \n
+                         "		[_grp, position (leader _grp), _cqbRadius, [], false, false, -2 - 2, _cqbPatrol > 0] call lambs_wp_fnc_taskgarrison;" \n
                          "	};" \n
                          "	default {" \n
                          "		_grp setbehaviour ""SAFE"";" \n
@@ -403,7 +422,6 @@ class FSM
                          "		} foreach (units _grp);" \n
                          "	};" \n
                          "};" \n
-                         "" \n
                          "" \n
                          "{" \n
                          "	_x setvariable [""HousePos"", position _x];" \n
