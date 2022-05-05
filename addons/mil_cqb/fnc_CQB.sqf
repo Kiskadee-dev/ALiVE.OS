@@ -1260,10 +1260,12 @@ switch(_operation) do {
 
             // TODO Notify controller to start directing
             // TODO this needs to be refactored
+            
             _fsm = "\x\alive\addons\mil_cqb\HousePatrol.fsm";
             _hdl = [_logic,(leader _grp), 50, true, 60] execFSM _fsm;
             (leader _grp) setVariable ["FSM", [_hdl,_fsm], true];
             _args = _grp;
+            
         };
         _args;
     };

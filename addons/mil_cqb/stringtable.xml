@@ -152,5 +152,35 @@
 <Key ID="STR_ALIVE_CQB_UNIT_BLACKLIST_COMMENT">
     <English>Blacklist Units from this CQB module (optional)</English>
 </Key>
+<Key ID="STR_ALIVE_CQB_GARRISON_BEHAVIOUR">
+    <English>Garrisoned AI Behaviour</English>
+</Key>
+<Key ID="STR_ALIVE_CQB_GARRISON_BEHAVIOUR_COMMENT">
+    <English>Choose a supported AI behaviour to handle the garrisoned units (optional)</English>
+</Key>
+<Key ID="STR_ALIVE_CQB_GARRISON_AREA">
+    <English>Garrisoned AI Area</English>
+</Key>
+<Key ID="STR_ALIVE_CQB_GARRISON_AREA_COMMENT">
+    <English>The distance the AI will garrison (CBA, Lambs)</English>
+</Key>
+<Key ID="STR_ALIVE_CQB_GARRISON_THRESHOLD">
+    <English>Garrison threshold (CBA)</English>
+</Key>
+<Key ID="STR_ALIVE_CQB_GARRISON_THRESHOLD_COMMENT">
+    <English>Minimum building positions required to be considered for garrison (CBA)</English>
+</Key>
+<Key ID="STR_ALIVE_CQB_GARRISON_PATROL">
+    <English>Chance of patrol (CBA)</English>
+</Key>
+<Key ID="STR_ALIVE_CQB_GARRISON_PATROL_COMMENT">
+    <English>Chance for each unit to patrol instead of garrison (CBA)</English>
+</Key>
+<Key ID="STR_ALIVE_CQB_GARRISON_HOLD">
+    <English>Chance of holding position (CBA)</English>
+</Key>
+<Key ID="STR_ALIVE_CQB_GARRISON_HOLD_COMMENT">
+    <English>Chance for each unit to hold their garrison in combat (CBA)</English>
+</Key>
 
 </Container></Package></Project>

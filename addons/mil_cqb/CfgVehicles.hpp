@@ -340,6 +340,62 @@ class CfgVehicles {
                                 description = "$STR_ALIVE_CQB_UNIT_BLACKLIST_COMMENT";
                                 defaultValue = "";
                         };
+                        class garrison_behaviour
+                        {
+                                displayName = "$STR_ALIVE_CQB_GARRISON_BEHAVIOUR";
+                                description = "$STR_ALIVE_CQB_GARRISON_BEHAVIOUR_COMMENT";
+                                class Values
+                                {
+                                        class Vanilla 
+                                        {
+                                                name="Vanilla";
+                                                value = "vanilla";
+                                        };
+                                        class CBA 
+                                        {
+                                                name="CBA";
+                                                value = "cba";
+                                        };
+                                        class Lambs 
+                                        {
+                                                name="Lambs danger.fsm";
+                                                value = "lambs";
+                                        };
+                                };
+                                defaultValue = "vanilla";
+                        };
+                        class garrison_area
+                        {
+                                displayName = "$STR_ALIVE_CQB_GARRISON_AREA";
+                                description = "$STR_ALIVE_CQB_GARRISON_AREA_COMMENT";
+                                tooltip = "min 0, max 100";
+                                value=50; // 0 < x < 100. 100 is the artificial limit, why garrison further than 100m?
+                                defaultValue=50;  
+                        };
+                        class garrison_threshold
+                        {
+                                displayName = "$STR_ALIVE_CQB_GARRISON_THRESHOLD";
+                                description = "$STR_ALIVE_CQB_GARRISON_THRESHOLD_COMMENT";
+                                tooltip = "min 0, max 10";
+                                value=3; // 0 < x < 10;
+                                defaultValue=3;
+                        };
+                        class garrison_patrol
+                        {
+                                displayName = "$STR_ALIVE_CQB_GARRISON_PATROL";
+                                description = "$STR_ALIVE_CQB_GARRISON_PATROL_COMMENT";
+                                tooltip = "min 0%, max 100%";
+                                value = 1; // 1/100 = 0.1; 0 <= x <= 1
+                                defaultValue = 1;
+                        };
+                        class garrison_hold
+                        {
+                                displayName = "$STR_ALIVE_CQB_GARRISON_HOLD";
+                                description = "$STR_ALIVE_CQB_GARRISON_HOLD_COMMENT";
+                                tooltip = "min 0%, max 100%";
+                                value = 1; // 1/100 = 0.1; 0 <= x <= 1
+                                defaultValue = 1;
+                        };
                 };
                 class ModuleDescription
                 {
